@@ -41,9 +41,10 @@ public class TestSocketIO : MonoBehaviour
 
 		socket.On("open", TestOpen);
 		socket.On("boop", TestBoop);
+		socket.On("user", TestUser);
 		socket.On("error", TestError);
 		socket.On("close", TestClose);
-		
+
 		StartCoroutine("BeepBoop");
 	}
 
@@ -74,8 +75,14 @@ public class TestSocketIO : MonoBehaviour
 	public void TestOpen(SocketIOEvent e)
 	{
 		Debug.Log("[SocketIO] Open received: " + e.name + " " + e.data);
+		socket.Emit("user");
 	}
 	
+	public void TestUser(SocketIOEvent e)
+	{
+		Debug.Log("user");
+	}
+
 	public void TestBoop(SocketIOEvent e)
 	{
 		Debug.Log("[SocketIO] Boop received: " + e.name + " " + e.data);
